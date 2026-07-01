@@ -1,13 +1,18 @@
 package model.services;
 import model.entities.Installment;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaypalService implements OnlinePaymentService {
-    Installment installment;
+    private static final double FEE_PERCENTAGE = 0.02;
+    private static final double MONTHLY_INTEREST = 0.01;
 
+    @Override
     public Double paymentFee(Double amount) {
-        return
+        return amount * FEE_PERCENTAGE;
     }
+    @Override
     public Double interest(Double amount, Integer months) {
-        return
+        return amount * MONTHLY_INTEREST * months;
     }
 }

@@ -28,16 +28,12 @@ public class Main {
         System.out.print("Enter the number of installments: ");
         int installments = sc.nextInt();
         sc.nextLine();
-        double amount = totalValue / installments;
-        for(int i = 1; i <= installments; i++) {
-            LocalDate dueDate = date.plusMonths(i);
-            list.add(new Installment(dueDate, amount, contract));
-        }
+        ContractService service = new ContractService(new PaypalService());
+        service.processContract(contract, installments);
         System.out.println("Installments:");
-        for (Installment installment : list) {
-            System.out.println(dtf.format(installment.getDueDate()) + " - " );
+        for (Installment installment : contract.getList()) {
+            System.out.println(dtf.format(installment.getDueDate()) + " - " + df.format(installment.getAmount()));
         }
-
 
         sc.close();
     }
